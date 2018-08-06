@@ -1,0 +1,19 @@
+.sidenav-container {
+    height: 100%;
+}
+
+.sidenav {
+    width: 200px;
+}
+
+.mat-toolbar.mat-primary {
+    position: sticky;
+    top: 0;
+}
+
+img {
+    height: auto;
+    width: auto;
+    max-width: 10%;
+    object-fit: cover;
+}
