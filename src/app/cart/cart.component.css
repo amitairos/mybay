@@ -1,0 +1,16 @@
+.productImage {
+    max-width: 100%;
+    max-height: 100px;
+    margin: 0 auto;
+    display: block;
+}
+
+.flexItem {
+    width: 20%;
+    font-size: 17px;
+ }
+
+ .productImageSmall {
+    width:100%;
+    height: auto;
+}

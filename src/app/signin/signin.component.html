@@ -1,7 +1,9 @@
-<mat-card style="width: 40%; margin: 30px auto; height: 40%">
+<mat-card style="width: 40%; margin: 30px auto; padding: 20px">
   <h2>Sign In to MyBay</h2>
+  <p *ngIf="showVerificationText">Please confirm your account from your E-mail.</p>
   <div *ngIf="!(authService.user | async)">
     <div *ngIf="showLogin">
+        <p style="color: red;" *ngIf="show_login_error">{{login_error}}</p>
       <mat-form-field>
         <input matInput type="text" [(ngModel)]="email" placeholder="E-mail">
       </mat-form-field>
@@ -20,23 +22,47 @@
     </div>
 
     <div *ngIf="!showLogin">
-      <mat-form-field>
-        <input matInput type="text" [(ngModel)]="email" placeholder="E-mail">
-      </mat-form-field>
-      <br/>
-      <mat-form-field>
-        <input matInput type="password" [(ngModel)]="password" placeholder="Password">
-      </mat-form-field>
-      <br/>
-      <button style="float: right" mat-raised-button color="primary" (click)="signup()" [disabled]="!email || !password">
-        Signup
-      </button>
-      <div style="float: right; clear: both;">
-        Already a user?
-        <a style="color: blue; cursor: pointer;" (click)="showLogin=true">Sign In</a>
-      </div>
+      <form #f="ngForm" (ngSubmit)="signup(f)">
+        <mat-form-field>
+          <input name="fullname" required matInput type="text" [(ngModel)]="name" placeholder="Full Name">
+        </mat-form-field>
+        <br/>
+        <mat-form-field>
+          <input #mail name="mail" matInput type="email" [(ngModel)]="email" placeholder="E-mail" email>
+        </mat-form-field>
+        <!-- <div *ngIf="mail.errors">
+          <mat-error *ngIf="mail.errors?.required">
+            Email is required
+          </mat-error>
+          <mat-error *ngIf="mail.errors?.pattern">
+
+            Please enter a valid email address
+          </mat-error>
+        </div> -->
+        <br/>
+        <p style="color: red;" *ngIf="show_pass_error">{{pass_error}}</p>
+        <mat-form-field>
+          <input name="password" required matInput type="password" [(ngModel)]="password" placeholder="Password">
+        </mat-form-field>
+        <br/>
+        <mat-form-field>
+          <input name="password_verify" required matInput type="password" [(ngModel)]="password_verify" placeholder="Verify Password">
+        </mat-form-field>
+        <br/>
+        <mat-form-field>
+          <input name="nickname" required matInput type="text" [(ngModel)]="nickname" placeholder="Nickname">
+        </mat-form-field>
+        <br/>
+        <button style="float: right; clear: both;" mat-raised-button color="primary" type="submit">
+          Signup
+        </button>
+        <div style="float: right; clear: both;">
+          Already a user?
+          <a style="color: blue; cursor: pointer;" (click)="showLogin=true">Sign In</a>
+        </div>
+      </form>
+
+
     </div>
-
-
   </div>
 </mat-card>

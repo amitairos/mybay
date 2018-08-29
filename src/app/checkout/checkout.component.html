@@ -1,0 +1,68 @@
+<div style="width: 60%; margin: 0 auto; padding: 20px">
+  <mat-card>
+    <div *ngIf="!purchaseCompleted">
+      <b>Choose payment method:</b>
+      <br/>
+      <div style="display: flex;">
+        <img style=" height: auto; 
+        width: auto; 
+        max-width: 100px; 
+        max-height: 45px;" src="../../assets/Visa.png" />
+        <mat-radio-group [(ngModel)]="payment">
+          <mat-radio-button [value]="'cc'" [checked]="payment==='cc'">Credit Card</mat-radio-button>
+          <mat-radio-button [value]="'pp'" [checked]="payment==='pp'">PayPal</mat-radio-button>
+        </mat-radio-group>
+        <img style=" height: auto; 
+        width: auto; 
+        max-width: 100px; 
+        max-height: 45px;" src="../../assets/paypal.jpg" />
+      </div>
+
+      <form #f="ngForm" (ngSubmit)="purchaseCC(number.value, cvv.value)" *ngIf="payment=='cc'">
+        <mat-form-field style="width: 60%">
+          <input matInput placeholder="Card number" #number>
+        </mat-form-field>
+        <br/> Expiration Date:
+        <br/>
+        <mat-form-field>
+          <mat-select placeholder="Month" [(value)]="chosenMonth">
+            <mat-option *ngFor="let month of months" [value]="month">
+              {{month}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select placeholder="Year" [(value)]="chosenYear">
+            <mat-option *ngFor="let year of years" [value]="year">
+              {{year}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field style="margin-left: 40px;">
+          <input matInput placeholder="CVV" #cvv/>
+        </mat-form-field><br/>
+        <p style="color:red" *ngIf="showCCError">Credit Card details are incorrect</p>
+        <button mat-raised-button color="primary">
+          Purchase
+        </button>
+      </form>
+
+      <form #f="ngForm" (ngSubmit)="purchasePayPal(email.value, password.value)" *ngIf="payment=='pp'">
+        <mat-form-field style="width: 40%">
+          <input type="email" matInput placeholder="Email" #email>
+        </mat-form-field>
+        <mat-form-field style="width: 40%">
+          <input type="password" matInput placeholder="Password" #password/>
+        </mat-form-field><br/>
+        <p style="color:red" *ngIf="showPPError">PayPal details are incorrect</p>
+        <button mat-raised-button color="primary">
+          Purchase
+        </button>
+      </form>
+    </div>
+    <div *ngIf="purchaseCompleted">
+      <p style="font-size: 32px"> Purchase Completed</p>
+      <a [routerLink]="['/store']">Go Back to Store</a>
+    </div>
+  </mat-card>
+</div>

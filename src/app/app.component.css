@@ -1,0 +1,17 @@
+.mat-toolbar.mat-primary {
+    position: sticky;
+    top: 0;
+}
+
+.logo {
+    height: auto;
+    width: auto;
+    max-height: 80%;
+    max-width: 10%;
+    object-fit: cover;
+    margin-left: 220px;
+}
+
+.user {
+    font-size: 16px;
+}

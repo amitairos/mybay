@@ -1,3 +1,19 @@
-
+<mat-toolbar color="primary">
+    <!-- <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+    </button> -->
+    <img class="logo" (click)="GoHome()" src=".././assets/myBay.png" alt="" style="cursor:pointer; " />
+    <span style="flex: 1 1"></span>
+    <button matTooltip="Shopping Cart" style="margin: 10px" mat-icon-button (click)="openCart()">
+        <mat-icon>shopping_cart</mat-icon>
+    </button>
+    <div align="center">
+        <div class="user">Hello {{authService.authState ? authService.authState.displayName : ''}}</div>
+        <button mat-button color="white" class="button" (click)="signout()">Sign out</button>
+    </div>
+    <button matTooltip="Profile" style="margin: 10px" mat-icon-button (click)="openUserProfile()">
+        <mat-icon>person</mat-icon>
+    </button>
+</mat-toolbar>
 
 <router-outlet></router-outlet>

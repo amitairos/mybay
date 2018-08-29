@@ -1,0 +1,31 @@
+<div style="height: 90vh; overflow:auto;">
+  <div style="display: flex; padding: 20px; width: 60%; margin: 0 auto; justify-content: center">
+    <mat-card style="max-height: 100vh; overflow: auto">
+      <div style="text-align: center;">
+        <h2>{{product.Name}}</h2>
+        <img [src]="product.ImageLink" [alt]="product.Name" class="productImage" />
+        <p style="margin:20px">{{product.Description}}</p>
+      </div>
+    </mat-card>
+    <div style="margin-left: 30px">
+      <mat-card>
+        <div style="text-align: center;">
+          <div>
+            <b>{{product.Inventory}}</b> in stock</div>
+          <div>
+            <b>Price: </b>${{product.Price}}</div>
+        </div>
+      </mat-card>
+      <mat-card style="margin-top: 20px">
+        <div style="text-align: center;">
+          <mat-form-field>
+            <input placeholder="Quantity" matInput type="number" min="0" [max]="product.Inventory" [(ngModel)]="quantityNum" #quantity />
+          </mat-form-field>
+          <p *ngIf="showError" style="color: red">Quantity is more than in inventory</p>
+          <br/>
+          <button style="margin-top: 10px" mat-raised-button color="primary" (click)="addToCart()">Add to Cart</button>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</div>

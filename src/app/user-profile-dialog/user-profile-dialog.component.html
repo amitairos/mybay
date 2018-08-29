@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>{{authService.authState.displayName}}'s Profile</h2>
+<div mat-dialog-content>
+  <button mat-raised-button color="primary" (click)="sendPasswordResetEmail()">Forgot Password</button>
+  <div *ngIf="showResetText">A password reset link was sent to your mail</div>
+  <br/>
+  <br/>
+  <b>Payment methods:</b><br/><br/>
+  <b>Credit card number: </b>{{ccNumber}}<br/>
+  <b>Credit card CVV: </b>{{cvv}}<br/>
+  <b>Credit card expiration date: </b>1/2025<br/><br/>
+  <b>PayPal email: </b>{{authService.authState.email}}<br/>
+  <b>PayPal password: </b>{{paypalPass}}<br/>
+</div>
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="primary" mat-dialog-close>Close</button>
+</mat-dialog-actions>
