@@ -1,0 +1,35 @@
+<h1 mat-dialog-title>Product</h1>
+<div mat-dialog-content style="height: 90vh">
+  <form #f="ngForm" (ngSubmit)="saveChanges(f)">
+    <mat-form-field>
+      <input required matInput [(ngModel)]="product.Name" placeholder="Name" name="name">
+    </mat-form-field>
+    <mat-form-field>
+      <input required matInput [(ngModel)]="product.By" placeholder="By" name="By">
+    </mat-form-field>
+    <mat-form-field>
+      <input required matInput [(ngModel)]="product.ImageLink" placeholder="Image Link" name="Image">
+    </mat-form-field>
+    <mat-form-field>
+      <textarea required matInput [(ngModel)]="product.Description" placeholder="Description" name="description"></textarea>
+    </mat-form-field>
+    <mat-form-field>
+      <input required matInput [(ngModel)]="product.Category" placeholder="Category" name="category">
+    </mat-form-field>
+    <mat-form-field>
+      <input required matInput [(ngModel)]="product.SubCategory" placeholder="Sub Category" name="sub">
+    </mat-form-field>
+    <mat-form-field>
+      <input required matInput [(ngModel)]="product.Inventory" placeholder="Inventory" type="number" name="inventory"
+        min="0">
+    </mat-form-field>
+    <mat-form-field>
+      <input required matInput [(ngModel)]="product.Price" type="number" min="0" placeholder="Price" name="price">
+    </mat-form-field>
+    <div style="color:red" *ngIf="showError">Not all fields are valid</div>
+    <div mat-dialog-actions style="float:right;">
+      <button mat-button (click)="onNoClick()">Cancel</button>
+      <button mat-raised-button color="primary" type="submit">Save</button>
+    </div>
+  </form>
+</div>

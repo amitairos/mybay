@@ -7,11 +7,13 @@
     height: auto;
     width: auto;
     max-height: 80%;
-    max-width: 10%;
+    max-width: 11%;
     object-fit: cover;
-    margin-left: 220px;
+    margin-left: 30px;
+    /* margin-left: 250px; */
 }
 
 .user {
     font-size: 16px;
 }
+

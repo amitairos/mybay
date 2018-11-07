@@ -1,0 +1,24 @@
+<h1 mat-dialog-title>Product</h1>
+<div mat-dialog-content style="height: 90vh">
+  <div style="display:flex" *ngFor="let discount of discounts">
+    <div>
+    <mat-form-field>
+      <input required matInput [(ngModel)]="discount.percent_from" type="number" min="0" placeholder="From percentage of inventory">
+    </mat-form-field>
+    <mat-form-field>
+      <input required matInput [(ngModel)]="discount.percent_to" type="number" min="0" placeholder="To percentage of inventory">
+    </mat-form-field>
+    <mat-form-field>
+      <input required matInput [(ngModel)]="discount.discount" placeholder="Discount">
+    </mat-form-field>
+    </div>
+    <button mat-icon-button (click)="deleteDiscount(discount)">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
+  <button mat-raised-button color="primary" (click)="addDiscount()">Add Discount</button>
+</div>
+<div mat-dialog-actions style="float:right;">
+  <button mat-button (click)="close()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="saveChanges()">Save</button>
+</div>

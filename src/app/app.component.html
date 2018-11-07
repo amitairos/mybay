@@ -4,15 +4,27 @@
     </button> -->
     <img class="logo" (click)="GoHome()" src=".././assets/myBay.png" alt="" style="cursor:pointer; " />
     <span style="flex: 1 1"></span>
-    <button matTooltip="Shopping Cart" style="margin: 10px" mat-icon-button (click)="openCart()">
+    <button style="width:30px; height: 30px; line-height: 0" *ngIf="authService.isAdmin && authService.authState" matTooltip="Super User Dashboard" mat-icon-button (click)="openAdminDashboard()">
+        <mat-icon svgIcon="crown" style="color: gold; font-size:30px; width:30px; height: 30px;"></mat-icon>
+    </button>
+    <button *ngIf="authService.authState" matTooltip="Shopping Cart" style="margin: 10px" mat-icon-button (click)="openCart()">
         <mat-icon>shopping_cart</mat-icon>
     </button>
-    <div align="center">
-        <div class="user">Hello {{authService.authState ? authService.authState.displayName : ''}}</div>
-        <button mat-button color="white" class="button" (click)="signout()">Sign out</button>
+    <div align="center" *ngIf="authService.authState">
+        <div class="user">Hello {{authService.authState ? authService.authState.displayName : ''}}
+            <button style="width:30px; height: 30px; margin-left: 10px; line-height: 3.5" *ngIf="authService.authState" matTooltip="Profile" mat-icon-button [matMenuTriggerFor]="userMenu">
+                <mat-icon style="font-size:30px; width:30px; height: 30px">account_circle</mat-icon>
+            </button>
+            <mat-menu #userMenu="matMenu" overlapTrigger="false">
+                <button mat-menu-item (click)="openUserProfile()">My Profle</button>
+                <button mat-menu-item (click)="openPurchaseHistory()">My Purchases</button>
+                <button mat-menu-item (click)="openPaymentHistory()">My Payments & Refunds</button>
+            </mat-menu>
+            <button mat-button color="white" class="button" (click)="signout()">Sign out</button>
+        </div>
     </div>
-    <button matTooltip="Profile" style="margin: 10px" mat-icon-button (click)="openUserProfile()">
-        <mat-icon>person</mat-icon>
+    <button matTooltip="About" style="margin: 10px" mat-icon-button (click)="openAboutDialog()">
+        <mat-icon>info_outline</mat-icon>
     </button>
 </mat-toolbar>
 

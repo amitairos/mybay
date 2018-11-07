@@ -1,9 +1,11 @@
 .sidenav-container {
-    height: 90%;
+    height: calc(100vh - 130px);
 }
 
 .sidenav {
-    width: 210px;
+    margin-top: 130px;
+    width: 250px;
+    overflow: none;
     /* margin-top: 64px; */
 }
 
@@ -16,9 +18,23 @@
 .productImage {
     max-width: 100%;
     max-height: 70%;
+    margin-bottom: 10px
 }
+
+.productImageList {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+}
+
 div {
     text-align: center;
+}
+
+.categoryButton {
+    font-family: 'Roboto Condensed', sans-serif !important;
+    font-weight: 500;
+    font-size: 16px;
 }
 
 .search {
@@ -28,7 +44,7 @@ div {
     width: 80%;
     height: 50px;
     padding: 10px;
-    margin: 20px auto;
+    margin: 10px auto;
 }
 
 .search:focus{

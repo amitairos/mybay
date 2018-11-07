@@ -1,0 +1,35 @@
+<div style=" height: calc(100vh - 65px); overflow: auto;">
+  <div style="padding: 20px; width: 60%; margin: 0 auto;">
+    <div style="display: flex">
+      <h2>My Transaction History</h2>
+    </div>
+    <p *ngIf="paymentsService.myPayments.length <= 0" style="text-align: center; color: gray;">No History</p>
+    <mat-card style="margin: 10px 50px 10px 50px; width: 80%;" *ngFor="let payment of paymentsService.myPayments">
+      <div style="display: flex;  align-items: center; font-size: 20px;">
+        <div class="flexItem">{{payment.Date.toDate() | date}}</div>
+
+        <div class="flexItem"> ${{payment.Amount | round}}
+        </div>
+        <div class="flexItem"> {{payment.Expedinture ? 'Payment' : 'Refund'}}
+        </div>
+        <!-- <div class="flexItem" *ngIf="payment.PaymentMethod">
+          <b>Payment Method: </b>{{payment.PaymentMethod}}<br/>
+          <div *ngIf="payment.CCNumber">
+              ending in {{payment.CCNumber}}
+            </div>
+            <div *ngIf="!payment.CCNumber">
+              account: {{authService.authState.email}}
+            </div>
+        </div> -->
+      
+        <!-- <span style="flex: 1 1"></span>
+        <button mat-icon-button matTooltip="Remove Purchase from History" (click)="removePurchase(purchase)">
+          <mat-icon>delete</mat-icon>
+        </button>
+        <button mat-icon-button matTooltip="Cancel purchase" (click)="cancelPurchase(purchase)">
+          <mat-icon>cancel</mat-icon>
+        </button> -->
+      </div>
+    </mat-card>
+  </div>
+</div>

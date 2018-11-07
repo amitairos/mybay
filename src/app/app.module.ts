@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatFormFieldModule, MatCardModule, MatInputModule, MatRippleModule, MatRadioModule, MatSelectModule, MatTooltipModule, MatDialogModule } from '@angular/material';
+import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatFormFieldModule, MatCardModule, MatInputModule, MatRippleModule, MatRadioModule, MatSelectModule, MatTooltipModule, MatDialogModule, MatMenuModule, MatButtonToggleModule } from '@angular/material';
 import { SigninComponent } from './signin/signin.component';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
@@ -27,6 +27,16 @@ import { AuthGuardService } from './services/auth-guard.service';
 import { UserCreatedDialogComponent } from './user-created-dialog/user-created-dialog.component';
 import { UserProfileDialogComponent } from './user-profile-dialog/user-profile-dialog.component';
 import { EmailVerifiedComponent } from './email-verified/email-verified.component';
+import { StarRatingModule } from 'angular-star-rating';
+import { PurchaseHistoryComponent } from './purchase-history/purchase-history.component';
+import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
+import { RoundPipe } from './round.pipe';
+import { AboutDialogComponent } from './about-dialog/about-dialog.component';
+import { PaymentHistoryComponent } from './payment-history/payment-history.component';
+import { PaymentsService } from './services/payments.service';
+import { AdminComponent } from './admin/admin.component';
+import { ProductDialogComponent } from './admin/product-dialog/product-dialog.component';
+import { SaleDialogComponent } from './admin/sale-dialog/sale-dialog.component';
 
 export const environment = {
   production: false,
@@ -53,6 +63,14 @@ export const environment = {
     UserCreatedDialogComponent,
     UserProfileDialogComponent,
     EmailVerifiedComponent,
+    PurchaseHistoryComponent,
+    AlertDialogComponent,
+    RoundPipe,
+    AboutDialogComponent,
+    PaymentHistoryComponent,
+    AdminComponent,
+    ProductDialogComponent,
+    SaleDialogComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -79,10 +97,14 @@ export const environment = {
     MatRadioModule,
     MatSelectModule,
     MatTooltipModule,
-    MatDialogModule
+    MatDialogModule,
+    StarRatingModule.forRoot(),
+    MatMenuModule,
+    MatButtonToggleModule
   ],
-  entryComponents:[UserCreatedDialogComponent, UserProfileDialogComponent],
-  providers: [AuthService, AuthGuardService, ProductsService, CartService],
+  entryComponents:[UserCreatedDialogComponent, UserProfileDialogComponent,
+     AlertDialogComponent, AboutDialogComponent, ProductDialogComponent, SaleDialogComponent],
+  providers: [AuthService, AuthGuardService, ProductsService, CartService, PaymentsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

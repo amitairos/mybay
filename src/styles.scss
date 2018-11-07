@@ -1,0 +1,36 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '~css-star-rating/scss/star-rating';
+
+html,
+body {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    margin: 0;
+    
+    background-color: #eee !important
+}
+
+.mat-card, div, body, button {
+    font-family: 'Oswald', sans-serif !important;
+}
+
+button:focus {
+    outline: none !important;
+    border: 0 !important;
+}
+
+// @import '~@angular/material/theming';
+// @include mat-core();
+
+// $primary: mat-palette($mat-deep-purple, 600, 500, 900);
+// $accent: mat-palette($mat-amber, A400, A300, A600);
+
+
+// .back-primary {
+//   background-color: mat-color($primary);
+// }

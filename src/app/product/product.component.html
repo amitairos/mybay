@@ -1,31 +1,76 @@
-<div style="height: 90vh; overflow:auto;">
+<div style="height: calc(100vh - 65px); overflow:auto;">
   <div style="display: flex; padding: 20px; width: 60%; margin: 0 auto; justify-content: center">
-    <mat-card style="max-height: 100vh; overflow: auto">
+    <mat-card style="max-height: 75vh; overflow: auto">
       <div style="text-align: center;">
         <h2>{{product.Name}}</h2>
+        <div *ngIf="product.By">By <b>{{product.By}}</b></div>
+        <div *ngIf="product.Rating > 0" style="display:flex; justify-content: center">
+          <star-rating [showHalfStars]="true" [readOnly]="true" [starType]="'svg'" [rating]="product.Rating"></star-rating>
+          <small>{{product.Raters ==1 ? '1 review' : product.Raters + ' reviews'}}</small>
+        </div>
+        <br />
         <img [src]="product.ImageLink" [alt]="product.Name" class="productImage" />
-        <p style="margin:20px">{{product.Description}}</p>
+        <p style="margin-top:20px">{{product.Description}}</p>
       </div>
     </mat-card>
+
     <div style="margin-left: 30px">
       <mat-card>
+        <star-rating [labelText]="thanks" labelPosition="bottom" [hoverEnabled]="true" [starType]="'svg'" [rating]="myRating"
+          (starClickChange)="updateRating($event)"></star-rating>
         <div style="text-align: center;">
           <div>
             <b>{{product.Inventory}}</b> in stock</div>
-          <div>
-            <b>Price: </b>${{product.Price}}</div>
+          <div *ngIf="discount==0">
+            <b>Price: </b>${{product.Price}}
+          </div>
+          <div *ngIf="discount>0"> <b>Price: </b> <s>${{product.Price}}</s><br />
+            <span style="color: green">
+              ${{(product.Price*(1-discount)).toFixed(2)}}
+              <small>%{{discount * 100}} off</small></span>
+          </div>
         </div>
       </mat-card>
       <mat-card style="margin-top: 20px">
         <div style="text-align: center;">
+          <div *ngIf="showChooseQuantityText" style="color: red">Please choose the quantity</div>
+
           <mat-form-field>
-            <input placeholder="Quantity" matInput type="number" min="0" [max]="product.Inventory" [(ngModel)]="quantityNum" #quantity />
+            <mat-select placeholder="Quantity" [(value)]="quantityNum" (selectionChange)="calculateDiscount()">
+              <mat-option *ngFor="let quantity of quantityNumbers" [value]="quantity">
+                {{quantity}}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
-          <p *ngIf="showError" style="color: red">Quantity is more than in inventory</p>
-          <br/>
-          <button style="margin-top: 10px" mat-raised-button color="primary" (click)="addToCart()">Add to Cart</button>
+          <div *ngIf="showError" style="color: red">Quantity is more than in inventory</div>
+          <br />
+          <button style="margin-top: 10px" mat-raised-button color="primary" (click)="addToCart()">
+            <mat-icon>add_shopping_cart</mat-icon>
+            Add to Cart
+          </button>
         </div>
       </mat-card>
     </div>
   </div>
+  <h2 *ngIf="similarProducts.length>0" style="width:70%; margin: 0 auto">Similar Products</h2>
+  <mat-grid-list *ngIf="similarProducts.length>0" cols="4" gutterSize="10px" rowHeight="230px" style="width:70%; margin: 0 auto">
+    <mat-grid-tile *ngFor="let product of similarProducts">
+      <mat-card mat-ripple style=" width: calc(100% - 10px);
+        height: calc(100% - 50px); cursor: pointer;"
+        (click)="openProduct(product)">
+        <div style="height:100%; width: 100%; padding: 5px; text-align: center">
+          <img class="productImageGrid" src="{{product.ImageLink}}" alt="{{product.Name}}" />
+          <div style="margin: 10px; width: 90%; text-align: center; overflow: hidden;
+            text-overflow: ellipsis;
+            font-size: 16px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;">
+            {{product.Name}}
+          </div>
+        </div>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+
 </div>

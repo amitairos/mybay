@@ -1,17 +1,38 @@
 <h2 mat-dialog-title>{{authService.authState.displayName}}'s Profile</h2>
 <div mat-dialog-content>
-  <button mat-raised-button color="primary" (click)="sendPasswordResetEmail()">Forgot Password</button>
+  <button mat-raised-button color="primary" (click)="sendPasswordResetEmail()">Reset Password</button>
   <div *ngIf="showResetText">A password reset link was sent to your mail</div>
+  <div style="margin-top: 20px">
+    <button mat-raised-button color="primary" align="right" (click)="forgotPaymentMethods()">
+      Forgot Payment Methods
+    </button>
+    <p *ngIf="showPaymentMethodsSentText">Payment methods sent to mail</p>
+  </div>
+  <div style="margin-top: 20px">
+      <button mat-raised-button color="primary" align="right" (click)="resetPaymentMethods()">
+        Reset Payment Methods
+      </button>
+      <p *ngIf="showNewPaymentMethodsSentText">New payment methods sent to mail</p>
+    </div>
   <br/>
-  <br/>
-  <b>Payment methods:</b><br/><br/>
+
+  <mat-form-field>
+    <input matInput placeholder="Nickname" [(ngModel)]="nickname" (ngModelChange)="showSaveButton=true" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Address" [(ngModel)]="address" (ngModelChange)="showSaveButton=true" />
+  </mat-form-field>
+
+  <!-- <b>Payment methods:</b><br/><br/>
   <b>Credit card number: </b>{{ccNumber}}<br/>
   <b>Credit card CVV: </b>{{cvv}}<br/>
   <b>Credit card expiration date: </b>1/2025<br/><br/>
   <b>PayPal email: </b>{{authService.authState.email}}<br/>
-  <b>PayPal password: </b>{{paypalPass}}<br/>
+  <b>PayPal password: </b>{{paypalPass}}<br/> -->
 </div>
 
 <mat-dialog-actions align="end">
   <button mat-raised-button color="primary" mat-dialog-close>Close</button>
+  <button *ngIf="showSaveButton" mat-raised-button color="primary" (click)="saveChanges()">Save Changes</button>
 </mat-dialog-actions>

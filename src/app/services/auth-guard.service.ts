@@ -10,7 +10,7 @@ export class AuthGuardService implements CanActivate {
     ) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-        if ((this.authService.authState !== null)) {
+        if ((this.authService.authState !== null && this.authService.authState.emailVerified)) {
             //this.router.navigate(['/main']);
             //console.log('yip');
             return true;

@@ -18,12 +18,14 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./signin.component.css']
 })
 export class SigninComponent implements OnInit {
-  fullname: string;
+  firstname: string;
+  lastname: string;
   nickname: string;
+  address: string;
   email: string;
   password: string;
   password_verify: string;
-  show_login_error=false;
+  show_login_error = false;
   login_error;
 
   pass_error;
@@ -31,8 +33,10 @@ export class SigninComponent implements OnInit {
 
   showLogin = true;
   validate = false;
+  showResetText = false;
+  showEmailError = false;
 
-  showVerificationText=false;
+  showVerificationText = false;
   constructor(public authService: AuthService, private router: Router) { }
   matcher = new MyErrorStateMatcher();
 
@@ -49,13 +53,13 @@ export class SigninComponent implements OnInit {
         this.pass_error = check;
         return;
       }
-      if(this.password!=this.password_verify) {
+      if (this.password != this.password_verify) {
         this.show_pass_error = true;
         this.pass_error = 'Passwords do not match';
         return;
       }
-      this.authService.signup(this.email, this.password, this.fullname, this.nickname);
-      this.router.navigate(['/store']);
+      this.authService.signup(this.email, this.password, this.firstname, this.lastname, this.nickname, this.address);
+      this.showVerificationText = true
     }
     else {
     }
@@ -74,21 +78,62 @@ export class SigninComponent implements OnInit {
 
   login() {
     var verified = this.authService.login(this.email, this.password).then(signed => {
-      if(signed==false) {
-        this.showVerificationText=true;
+      if (signed == false) {
+        this.showVerificationText = true;
       }
-      else if(signed==true){
+      else if (signed == true) {
         this.router.navigate(['/store']);
       }
       else {
-        this.show_login_error=true;
-        this.login_error=signed;
+        this.show_login_error = true;
+        this.login_error = signed;
       }
-      
+
     });
-    if(!verified) {
-      
+    if (!verified) {
+
     }
+  }
+
+  loginwithFB() {
+    this.authService.loginwithFB().then(signed => {
+      console.log('in in in');
+      console.log(signed);
+      if (signed == false) {
+        this.showVerificationText = true;
+      }
+      else if (signed == true) {
+        this.router.navigate(['/store']);
+      }
+      else {
+        this.show_login_error = true;
+        this.login_error = signed;
+      }
+
+    });
+  }
+
+  forgotPassword() {
+    if (this.validateEmail(this.email)) {
+      this.authService.sendPasswordResetEmailToMail(this.email).then(sent => {
+        if (sent) {
+          this.showResetText = true;
+        }
+        else {
+          this.showEmailError = true;
+        }
+      }).catch(error => {
+        this.showEmailError = true;
+      });
+    }
+    else {
+      this.showEmailError = true;
+    }
+  }
+
+  validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
   }
 
   logout() {

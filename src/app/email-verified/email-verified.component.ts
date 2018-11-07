@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
+import { HttpClient } from '@angular/common/http';
+import { AngularFirestore } from 'angularfire2/firestore';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-email-verified',
@@ -8,10 +11,12 @@ import { AuthService } from '../services/auth.service';
 })
 export class EmailVerifiedComponent implements OnInit {
 
-  constructor(private authService: AuthService) { }
+  constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
-    this.authService.loginWithEmailLink();
+    this.authService.sendPaymentMethod(this.authService.authState.email);
+    this.router.navigate(['/login']);
   }
+
 
 }

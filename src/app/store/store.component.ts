@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
-import { ProductsService, DBProduct } from '../services/products.service';
+import { ProductsService, DBProduct, ProductCategory } from '../services/products.service';
 
 export interface Product {
   Id: number;
@@ -41,8 +41,12 @@ export class StoreComponent implements OnInit {
     'Auto'
   ]
 
+  currentCategory: ProductCategory = { Category: 'All', SubCategories: [], ShowSub: false };
+
   products: DBProduct[] = [];
   query;
+  grid = true;
+
   constructor(private breakpointObserver: BreakpointObserver,
     private router: Router,
     public productService: ProductsService,
@@ -51,32 +55,51 @@ export class StoreComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //this.products = this.productService.allProducts;
+    var x = 2;
+    /// #if x==1
+    this.productService.filteredProducts = this.productService.allProducts;
+    /// #endif
   }
 
   openProduct(product: DBProduct) {
-    this.router.navigate(['/products/' + this.productService.allProducts.indexOf(product)])
+    this.router.navigate(['/products/' + product.Id]);
   }
 
 
   openDepartment(category) {
-    this.productService.categories.forEach(c => {
-      if (c != category)
-        c.ShowSub = false;
-      else
-        c.ShowSub = true;
-    });
+    // this.productService.categories.forEach(c => {
+    //   if (c != category)
+    //     c.ShowSub = false;
+    //   else
+    //     c.ShowSub = true;
+    // });
+
+
+    this.query = null;
+    this.currentCategory = category;
+
     if (category.Category == 'All')
       this.productService.filteredProducts = this.productService.allProducts;
     else
       this.productService.filteredProducts = this.productService.allProducts.filter(p => p.Category == category.Category);
+
+
+    document.getElementsByClassName('mat-drawer-content')[0].scrollTop = 0; // For Chrome, Firefox, IE and Opera
+
+  }
+
+  showAllOfCategory() {
+    this.productService.filteredProducts = this.productService.allProducts.filter(p => p.Category == this.currentCategory.Category);
   }
 
   openSubCategory(sub) {
-    this.productService.filteredProducts = this.productService.allProducts.filter(p => p.SubCategory == sub);
+    this.productService.filteredProducts = this.productService.allProducts.filter(p => p.Category == this.currentCategory.Category).filter(p => p.SubCategory == sub);
   }
 
   search() {
-    this.productService.filteredProducts = this.productService.allProducts.filter(p => p.Name.toLowerCase().includes(this.query.toLowerCase()))
+    if (this.currentCategory.Category != 'All')
+      this.productService.filteredProducts = this.productService.allProducts.filter(p => p.Category == this.currentCategory.Category).filter(p => p.Name.toLowerCase().includes(this.query.toLowerCase()))
+    else
+      this.productService.filteredProducts = this.productService.allProducts.filter(p => p.Name.toLowerCase().includes(this.query.toLowerCase()))
   }
 }

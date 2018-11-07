@@ -7,6 +7,9 @@ import { CartComponent } from './cart/cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { EmailVerifiedComponent } from './email-verified/email-verified.component';
+import { PurchaseHistoryComponent } from './purchase-history/purchase-history.component';
+import { PaymentHistoryComponent } from './payment-history/payment-history.component';
+import { AdminComponent } from './admin/admin.component';
 
 const routes: Routes = [
   //{ path: '', redirectTo: '/', pathMatch: 'full' },
@@ -14,7 +17,10 @@ const routes: Routes = [
   { path: 'login', component: SigninComponent },
   { path: 'finishSignUp', component: EmailVerifiedComponent },
   { path: 'store', component: StoreComponent, canActivate: [AuthGuardService] },
+  { path: 'admin', component: AdminComponent, canActivate: [AuthGuardService] },
   { path: 'cart', component: CartComponent, canActivate: [AuthGuardService] },
+  { path: 'history', component: PurchaseHistoryComponent, canActivate: [AuthGuardService] },
+  { path: 'payments', component: PaymentHistoryComponent, canActivate: [AuthGuardService] },
   { path: 'products/:id', component: ProductComponent, canActivate: [AuthGuardService] },
   { path: 'checkout', component: CheckoutComponent, canActivate: [AuthGuardService] }
 ];
